@@ -3,3 +3,4 @@ run the following commands for sucessful installation of express,node modules an
 2. run the given command to install package.json and initial the installation of npm package which installs the dependencies. 
    npm init -y
 3. following above command run the below commands npm i express , npm i mongoose , npm i nodemon.
+4. now copy all the files of this repository to you folder where you've installed the packages.
