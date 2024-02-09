@@ -1,0 +1,5 @@
+run the following commands for sucessful installation of express,node modules and mongoose 
+1. change the directory of the terminal in vscode to the folder where you wanna keep your project
+2. run the given command to install package.json and initial the installation of npm package which installs the dependencies. 
+   npm init -y
+3. following above command run the below commands npm i express , npm i mongoose , npm i nodemon.
