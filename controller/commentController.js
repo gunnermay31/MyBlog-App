@@ -1,34 +1,36 @@
+//import model
 const Post = require("../models/postModel");
 const Comment = require("../models/commentModel");
 
-const createComment = async function(req, res) {
-    try {
-        // Destructure the necessary properties from req.body
-        const { postId, user, body } = req.body;
+//business logic 
 
-        // Create a new comment instance
-        const comment = new Comment({ post: postId, user, body });
+exports.createComment = async (req, res) => {
+    try{
+        //fetch data from req body 
+        const {post, user, body} = req.body;
+        //create a comment object
+        const comment = new Comment({
+            post,user,body
+        });
 
-        // Save the comment
+        //save the new comment into the database
         const savedComment = await comment.save();
 
-        // Update the associated post with the new comment
-        const updatedPost = await Post.findByIdAndUpdate(
-            postId,
-            { $push: { comments: savedComment._id } },
-            { new: true }
-        )
-        .populate("comments") // populate the comments array with comment documents
-        .exec();
+        //find the post by ID, add the new commnet to its comments array
+        const udpatedPost = await Post.findByIdAndUpdate(post, 
+                            {$push: {comments: savedComment._id} }, 
+                            {new: true})
+                            .populate("comments") //populate the comments array with comment documents
+                            .exec();
 
         res.json({
-            post: updatedPost,
+            post: udpatedPost,
         });
-    } catch (err) {
+
+    }
+    catch(error) {
         return res.status(500).json({
-            error: "Error while creating the comments",
+            error: "Error While Creating comment" ,
         });
     }
 };
-
-module.exports = { createComment };
