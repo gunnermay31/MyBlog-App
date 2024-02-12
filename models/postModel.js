@@ -9,20 +9,15 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    user:{
-        type:String,
-        required:true,
-    },
     likes: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Like", // Use the string "Like" as the reference
+        ref: "Like",
     }],
     comments: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Comment", // Use the string "Comment" as the reference
+        ref: "Comment",
     }]
 });
 
 module.exports = mongoose.model("Post", postSchema);
-
 
