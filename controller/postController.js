@@ -1,34 +1,36 @@
 const Post = require("../models/postModel");
 
-exports.createPost = async function(req, res) {
-    try {
-        const { title, body } = req.body;
+exports.createPost = async function(req,res){
+
+    try{
+
+        const { title , body} = req.body;
         const post = new Post({
-          title,body,
+            title,body,
         });
         const savedPost = await post.save();
-        res.json({
-            post: savedPost,
+
+        res.status(200).json({
+            post:savedPost,
         });
-    } catch(err) {
-        return res.status(400).json({
-            error: "Error while creating the post", // changed "err" to "error" for clarity
-        });
+    }
+    catch(error){
+         return res.status(400).json({
+            error:"error in creating the post",
+         });
     }
 };
 
-exports.getAllPosts = async function(req,res){
+exports.GetAllPosts = async function(req,res){
     try{
-        const posts =  await Post.find().populate("likes").populate("comments").exec();
-
+        const posts = await Post.find().populate("comments").exec();
         res.json({
             posts,
         })
-    } catch(err) {
-        return res.status(400).json({
-            error: "Error while creating the post", // changed "err" to "error" for clarity
-        });
     }
-
+    catch(error){
+        return res.status(400).json({
+            error:"error in creating the post",
+         });
+    }
 }
-
